@@ -1,0 +1,58 @@
+body {
+    text-align: center;
+    background-color: rgb(171, 192, 236) ;
+}
+.screen {
+    background-color:rgb(0, 0, 0);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2%;
+}
+.game-board td {
+    background-color: rgb(197, 197, 197);
+    width: 40px;
+    height:40px;
+    text-align: center;
+    font-size:1.4em;
+    cursor: pointer;
+    border-radius: 10%
+   
+}
+ .hidden{
+    display:none;
+
+}
+ .showen{
+     width: 39px ;
+     height: 39px;
+     margin: auto;
+    display:block;
+    background-color: white;
+    border-radius: 10%;
+}
+.info-board{
+    margin: auto;
+    padding: 20px;
+    border: black;
+    
+}
+button{
+    margin: auto;
+    background-color: wheat;
+    color: white;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 15%;
+}
+.levels button{
+    margin:5px; 
+    border: white 50px;
+    margin: auto;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border: 2px solid #f8f8f8;
+    height: 30px;
+    width: 120px;
+    border-radius: 30%;
+}
