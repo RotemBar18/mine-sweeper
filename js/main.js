@@ -70,7 +70,6 @@ function cellClicked(elCell, i, j, ev, value) {
         if (elCell.innerHTML === `<span class="showen">${FLAG}</span>`) {
             elCell.innerHTML = `<span class="hidden">${gBoard[i][j].value}</span>`
             gGame.markedCount--
-            console.log('gGame.markedCount--', gGame.markedCount)
             return
         }
         //if not flag
@@ -84,7 +83,6 @@ function cellClicked(elCell, i, j, ev, value) {
                 isRightClick = false
                 gCellClickedCounter++
                 gGame.markedCount++
-                console.log('gGame.markedCount++', gGame.markedCount)
                 checkWin()
                 return
             }
@@ -105,7 +103,6 @@ function cellClicked(elCell, i, j, ev, value) {
         }
         //if its not a flag 
         gGame.shownCount++
-        console.log(' gGame.shownCount++', gGame.shownCount)
         elCell.innerHTML = `<span class="showen">${gBoard[i][j].value}</span>`
         gBoard[i][j].isShown = true
         checkWin()
@@ -130,8 +127,6 @@ function cellClicked(elCell, i, j, ev, value) {
         }
     }
 }
-
-
 
 //check  size for win
 function checkWin() {
@@ -166,10 +161,6 @@ function checkWin() {
     }
 }
 
-
-
-
-
 function checkRightLeft(ev) {
     ev.preventDefault()
     if (ev.type === 'click') {
@@ -186,12 +177,10 @@ function openNegs(neg) {
         elCell.innerHTML = `<span class="showen">${value}</span>`
         neg[t].isShown = true
         gGame.shownCount++
-        console.log('gGame.shownCount', gGame.shownCount)
 
     }
     return
 }
-
 
 function levelClick(elBtn) {
     switch (elBtn.innerText) {
@@ -213,7 +202,6 @@ function levelClick(elBtn) {
     var elRestartBtn = document.querySelector('.info-board button')
     restartButton(elRestartBtn)
 }
-
 
 function restartgame() {
     var elLives = document.querySelector('.lives span')
