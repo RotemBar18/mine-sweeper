@@ -43,7 +43,6 @@ function renderBoard(board) {
         var row = board[i];
         strHtml += '<tr>';
         for (var j = 0; j < row.length; j++) {
-            var cell = board[i][j]
             var tdId = `cell-${i}-${j}`;
             strHtml += `<td id="${tdId}" oncontextmenu="cellClicked(this,${i},${j},event)"  onclick="cellClicked(this,${i},${j},event)">
             <span></span></td>`
@@ -114,10 +113,9 @@ function showNeighbors(board, rowIdx, colIdx) {
         if (i < 0 || i > board.length - 1) continue
         for (var j = colIdx - 1; j <= colIdx + 1; j++) {
             if (j < 0 || j > board[0].length - 1) continue
-            if (i === rowIdx && j === colIdx) continue
             var cell = board[i][j];
             neighbors.push(cell)
-            console.log(' neighbors',  neighbors)
+            
         }
     }
     return neighbors

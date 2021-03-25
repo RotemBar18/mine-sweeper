@@ -18,8 +18,10 @@ body {
     border-radius: 10%
    
 }
+
  .hidden{
-    display:none;
+    /* display:none; */
+    cursor: pointer;
 
 }
  .showen{

@@ -51,13 +51,12 @@ function setMinesNegsCount() {
     }
 }
 //after cell clicked
-function cellClicked(elCell, i, j, ev) {
+function cellClicked(elCell, i, j, ev, value) {
     if (gBoard[i][j].isShown) return
     //if game hasnt started go out
     if (!gGame.isOn) return
     // set mines after the first click
     if (!gCellClickedCounter) {
-
         placeMines(i, j)
         setMinesNegsCount()
         gCellClickedCounter++
@@ -86,6 +85,7 @@ function cellClicked(elCell, i, j, ev) {
                 gCellClickedCounter++
                 gGame.markedCount++
                 console.log('gGame.markedCount++', gGame.markedCount)
+                checkWin()
                 return
             }
         }
@@ -96,11 +96,19 @@ function cellClicked(elCell, i, j, ev) {
         if (elCell.innerHTML === `<span class="showen">${FLAG}</span>`) {
             return
         }
+        //if its empty 
+        if (elCell.innerHTML === `<span class="hidden"></span>`) {
+            var negs = showNeighbors(gBoard, i, j)
+            openNegs(negs)
+            checkWin()
+            return
+        }
         //if its not a flag 
         gGame.shownCount++
-        console.log('Game.shownCount++', gGame.shownCount)
+        console.log(' gGame.shownCount++', gGame.shownCount)
         elCell.innerHTML = `<span class="showen">${gBoard[i][j].value}</span>`
         gBoard[i][j].isShown = true
+        checkWin()
         //check if mine for losing life
         if (elCell.innerHTML === `<span class="showen">${MINE}</span>` && gLivesCounter >= 0) {
             var elLives = document.querySelector('.lives span')
@@ -120,9 +128,15 @@ function cellClicked(elCell, i, j, ev) {
             gGame.isOn = false
             clearInterval(intID)
         }
-        //check  size for win
-    } if (gLevel.SIZE === 4) {
-        if (gGame.markedCount < 2 && gGame.markedCount + gGame.shownCount === gLevel.SIZE ** 2) {
+    }
+}
+
+
+
+//check  size for win
+function checkWin() {
+    if (gLevel.SIZE === 4) {
+        if (gGame.markedCount <= 2 && gGame.markedCount + gGame.shownCount === gLevel.SIZE ** 2) {
             var elBtn = document.querySelector('button')
             elBtn.innerText = '😎'
             elBtn.style.backgroundColor = 'green'
@@ -130,25 +144,29 @@ function cellClicked(elCell, i, j, ev) {
             clearInterval(intID)
         }
     } else if (gLevel.SIZE === 8) {
-        if (gGame.markedCount < 12 && gGame.markedCount + gGame.shownCount === gLevel.SIZE ** 2) {
+        if (gGame.markedCount <= 12 && gGame.markedCount + gGame.shownCount === gLevel.SIZE ** 2) {
+            var elBtn = document.querySelector('button')
+            elBtn.innerText = '😎'
+            elBtn.style.backgroundColor = 'green'
+            gGame.isOn = false
+            clearInterval(intID)
+        }
+    } else if (gLevel.SIZE === 12) {
+        if (gGame.markedCount <= 30 && gGame.markedCount + gGame.shownCount === gLevel.SIZE ** 2) {
+            console.log('gGame.markedCount', gGame.markedCount)
+            console.log('gLevel.SIZE ** 2', gLevel.SIZE ** 2)
+            console.log('gGame.markedCount + gGame.shownCount', gGame.markedCount + gGame.shownCount)
             var elBtn = document.querySelector('button')
             elBtn.innerText = '😎'
             elBtn.style.backgroundColor = 'green'
             gGame.isOn = false
             clearInterval(intID)
 
-        } else if (gLevel.SIZE === 8) {
-            if (gGame.markedCount < 30 && gGame.markedCount + gGame.shownCount === gLevel.SIZE ** 2) {
-                var elBtn = document.querySelector('button')
-                elBtn.innerText = '😎'
-                elBtn.style.backgroundColor = 'green'
-                gGame.isOn = false
-                clearInterval(intID)
-
-            }
         }
     }
 }
+
+
 
 
 
@@ -160,7 +178,19 @@ function checkRightLeft(ev) {
     return true
 }
 
+function openNegs(neg) {
+    for (var t = 0; t < neg.length; t++) {
+        var value = neg[t].value
+        if (neg[t].isShown) continue
+        var elCell = document.getElementById(`cell-${neg[t].location.i}-${neg[t].location.j}`);
+        elCell.innerHTML = `<span class="showen">${value}</span>`
+        neg[t].isShown = true
+        gGame.shownCount++
+        console.log('gGame.shownCount', gGame.shownCount)
 
+    }
+    return
+}
 
 
 function levelClick(elBtn) {
@@ -180,7 +210,7 @@ function levelClick(elBtn) {
         default: -1
             break;
     }
-    var elRestartBtn =document.querySelector('.info-board button')
+    var elRestartBtn = document.querySelector('.info-board button')
     restartButton(elRestartBtn)
 }
 
