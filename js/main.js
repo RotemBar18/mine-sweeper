@@ -19,7 +19,7 @@ var intID = setInterval(renderTimer, 1000)
 function init() {
     gBoard = createBoard(gLevel.SIZE);
     renderBoard(gBoard);
-
+    
 }
 
 function placeMines(i, j) {
@@ -47,7 +47,7 @@ function setMinesNegsCount() {
                 renderCell({ i, j }, currCell.value)
             }
         }
-
+        
     }
 }
 //after cell clicked
@@ -55,12 +55,13 @@ function cellClicked(elCell, i, j, ev, value) {
     if (gBoard[i][j].isShown) return
     //if game hasnt started go out
     if (!gGame.isOn) return
-    // set mines after the first click
+    // set mines after the first click and starts timer
     if (!gCellClickedCounter) {
         placeMines(i, j)
         setMinesNegsCount()
         gCellClickedCounter++
-
+        
+        
     }
     //check whether its a right click or left click
     var isRightClick = checkRightLeft(ev)
@@ -148,9 +149,6 @@ function checkWin() {
         }
     } else if (gLevel.SIZE === 12) {
         if (gGame.markedCount <= 30 && gGame.markedCount + gGame.shownCount === gLevel.SIZE ** 2) {
-            console.log('gGame.markedCount', gGame.markedCount)
-            console.log('gLevel.SIZE ** 2', gLevel.SIZE ** 2)
-            console.log('gGame.markedCount + gGame.shownCount', gGame.markedCount + gGame.shownCount)
             var elBtn = document.querySelector('button')
             elBtn.innerText = '😎'
             elBtn.style.backgroundColor = 'green'
@@ -213,6 +211,9 @@ function restartgame() {
     gCellClickedCounter = 0
     gLivesCounter = 2
     gGame.isOn = true
+    clearInterval(intID)
+    renderTimer()
+    intID = setInterval(renderTimer, 1000)
     gBoard = createBoard(gLevel.SIZE)
     renderBoard(gBoard)
 

@@ -1,8 +1,17 @@
 body {
     text-align: center;
-    background-color: rgb(171, 192, 236) ;
+    background: url(../img/1.jpg), white;
+    background-repeat: no-repeat;
+    background-size:100%;
+    background-position-x: center
+    ;
+
 }
-.screen {
+h1{
+    text-shadow: 6px -4px 6px gray;
+    font-family: cursive;
+}
+.screen { 
     background-color:rgb(0, 0, 0);
     margin-left: auto;
     margin-right: auto;
@@ -10,8 +19,8 @@ body {
 }
 .game-board td {
     background-color: rgb(197, 197, 197);
-    width: 40px;
-    height:40px;
+    width: 30px;
+    height: 30px;
     text-align: center;
     font-size:1.4em;
     cursor: pointer;
@@ -25,12 +34,13 @@ body {
 
 }
  .showen{
-     width: 39px ;
-     height: 39px;
+     width: 29px ;
+     height: 29px;
      margin: auto;
     display:block;
     background-color: white;
     border-radius: 10%;
+    text-align: center;
 }
 .info-board{
     margin: auto;
@@ -57,4 +67,16 @@ button{
     height: 30px;
     width: 120px;
     border-radius: 30%;
+}
+.lives{
+    background-color: rgba(0, 128, 0, 0.541);
+    color:white;
+    max-width: 10%;
+    height: 23px;
+    margin: auto;
+    border-radius: 50%;
+
+}
+.lives span{
+    color: red;
 }
